@@ -11,14 +11,6 @@ class ContactForm extends Component {
     number: "",
   };
 
-  //   handleContact = (e) => {
-  //     this.setState({ name: e.target.value });
-  //   };
-
-  //   handleNumber = (e) => {
-  //     this.setState({ number: e.target.value });
-  //   };
-
   handleChange = (e) => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
@@ -82,3 +74,11 @@ const mapDispatchToProps = {
 };
 
 export default connect(null, mapDispatchToProps)(ContactForm);
+
+//   handleContact = (e) => {
+//     this.setState({ name: e.target.value });
+//   };
+
+//   handleNumber = (e) => {
+//     this.setState({ number: e.target.value });
+//   };

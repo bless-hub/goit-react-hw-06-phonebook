@@ -1,29 +1,85 @@
 import { combineReducers } from "redux";
-import taskTypes from "./tasksTypes";
+import taskActions from "./taskActions";
+import { createReducer } from "@reduxjs/toolkit";
+import notification from "../../components/Notification/Notification";
+// import tasksTypes from "./tasksTypes";
 
-const contact = (state = [], { type, payload }) => {
-  switch (type) {
-    case taskTypes.ADD:
-      return [...state, payload.tasks];
-
-    case taskTypes.REMOVE:
-      return state.filter((task) => task.id !== payload.contactId);
-
-    default:
-      return state;
-  }
-};
-const filter = (state = "", { type, payload }) => {
-  switch (type) {
-    case taskTypes.CHANGE_FILTER:
-      return payload.filter;
-
-    default:
-      return state;
+const addContactAction = (state, action) => {
+  const newContact = action.payload.task;
+  const notificationName = state.find(
+    (contact) => contact.name === newContact.name
+  );
+  if (notificationName) {
+    notification();
+  } else {
+    return [...state, action.payload.task];
   }
 };
 
-export default combineReducers({ contact, filter });
+const removeContactAction = (state, action) =>
+  state.filter((contact) => contact.id !== action.payload);
+
+const items = createReducer([], {
+  [taskActions.addContact]: addContactAction,
+  [taskActions.removeContact]: removeContactAction,
+});
+
+const filter = createReducer("", {
+  [taskActions.changeFilter]: (state, action) => action.payload,
+});
+
+export default combineReducers({
+  items,
+  filter,
+});
+//==================Before Refactor===============
+// const items = (state = [], { type, payload }) => {
+//   switch (type) {
+//     case taskActions.addContact.type:
+//       return [...state, payload.task];
+
+//     case taskActions.removeContact.type:
+//       return state.filter((contact) => contact.id !== payload);
+
+//     default:
+//       return state;
+//   }
+// };
+
+// const filter = (state = "", { type, payload }) => {
+//   switch (type) {
+//     case taskActions.changeFilter.type:
+//       return payload;
+
+//     default:
+//       return state;
+//   }
+// };
+//==================Before Refactor===============
+
+// const contact = (state = [], { type, payload }) => {
+//   switch (type) {
+//     case taskAction.addContact.type:
+//       return [...state, payload.contact];
+
+//     case taskAction.removeContact.type:
+//       return state.filter((task) => task.id !== payload.contact);
+
+//     default:
+//       return state;
+//   }
+// };
+// const filter = (state = "", { type, payload }) => {
+//   switch (type) {
+//     case taskAction.changeFilter.type:
+//       return payload.contact;
+
+//     default:
+//       return state;
+//   }
+// };
+
+// export default combineReducers({ contacts: itemReducers, filter });
 
 // state = {
 //     contacts: [],

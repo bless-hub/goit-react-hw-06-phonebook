@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import style from "./ContactList.module.css";
 import ContactItem from "./ContactItem";
 import { connect } from "react-redux";
-import taskActions from "../../redux/tasks/taskActions";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import fade from "./fade.module.css";
+// import taskActions from "../../redux/tasks/taskActions";
 
-const ContactList = ({ contacts, removeContact }) => (
+const ContactList = ({ contacts }) => (
   <>
     <TransitionGroup component="ul" className={style.list}>
       {contacts.map((contact) => (
@@ -16,7 +16,6 @@ const ContactList = ({ contacts, removeContact }) => (
             id={contact.id}
             name={contact.name}
             number={contact.number}
-            removeContact={removeContact}
           />
         </CSSTransition>
       ))}
@@ -25,7 +24,6 @@ const ContactList = ({ contacts, removeContact }) => (
 );
 
 ContactList.propTypes = {
-  removeContact: PropTypes.func.isRequired,
   contacts: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -34,14 +32,13 @@ ContactList.propTypes = {
     })
   ),
 };
-
-const mapStateToProps = (state) => ({
-  contacts: state.task.contact.filter((contact) =>
-    contact.name.toLowerCase().includes(state.task.filter.toLowerCase())
-  ),
-});
-const mapDispatchToProps = {
-  removeContact: taskActions.removeContact,
+const mapStateToProps = (state) => {
+  const visibleContacts = state.tasks.items.filter((task) =>
+    task.name.toLowerCase().includes(state.tasks.filter.toLowerCase())
+  );
+  return {
+    contacts: visibleContacts,
+  };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
+export default connect(mapStateToProps)(ContactList);

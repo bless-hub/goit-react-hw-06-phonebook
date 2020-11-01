@@ -1,11 +1,20 @@
-import { createStore, combineReducers } from "redux";
+// import { createStore, combineReducers } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
 import taskReducer from "./tasks/tasksReducers";
 
-const rootReducer = combineReducers({ task: taskReducer });
+const store = configureStore({
+  reducer: {
+    tasks: taskReducer,
+  },
+});
 
-const store = createStore(
-  rootReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+// const rootReducer = combineReducers({
+//   tasks: taskReducer,
+// });
+
+// const store = createStore(
+//   rootReducer,
+//   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+// );
 
 export default store;

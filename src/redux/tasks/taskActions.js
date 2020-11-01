@@ -1,32 +1,47 @@
+/* eslint-disable import/no-anonymous-default-export */
 import { v4 as uuid } from "uuid";
-import taskTypes from "./tasksTypes";
+import { createAction } from "@reduxjs/toolkit";
+// import taskTypes from "./tasksTypes";
 
-const addContact = ({ name, number }) => ({
-  type: taskTypes.ADD,
+const addContact = createAction("contact/add", ({ name, number }) => ({
   payload: {
-    tasks: {
+    task: {
       id: uuid(),
       name,
       number,
     },
   },
-});
+}));
 
-const removeContact = (contactId) => ({
-  type: taskTypes.REMOVE,
-  payload: {
-    contactId,
-  },
-});
+const removeContact = createAction("contact/remove");
 
-const changeFilter = (filter) => ({
-  type: taskTypes.CHANGE_FILTER,
-  payload: {
-    filter,
-  },
-});
-export default {
-  addContact,
-  removeContact,
-  changeFilter,
-};
+const changeFilter = createAction("contact/changeFilter");
+
+export default { addContact, removeContact, changeFilter };
+
+//==============До рефактора==========================
+// const addContact = ({ name, number }) => ({
+//   type: taskTypes.ADD,
+//   payload: {
+//     task: {
+//       id: uuid(),
+//       name,
+//       number,
+//     },
+//   },
+// });
+
+// const removeContact = (contactId) => ({
+//   type: taskTypes.REMOVE,
+//   payload: {
+//     contactId,
+//   },
+// });
+
+// const changeFilter = (filter) => ({
+//   type: taskTypes.CHANGE_FILTER,
+//   payload: {
+//     filter,
+//   },
+// });
+//==============До рефактора==========================

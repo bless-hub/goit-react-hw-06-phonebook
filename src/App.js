@@ -1,14 +1,14 @@
-import React, { Component } from "react";
+import React from "react";
 import Container from "./components/Container/Container";
 import ContactList from "./components/ContactList/ContacrList";
 import ContactForm from "./components/ContactForm/ContactForm";
-import { v4 as uuid } from "uuid";
+// import { v4 as uuid } from "uuid";
 import Filter from "./components/Filter/Filter";
-import notification from "./components/Notification/Notification";
+// import notification from "./components/Notification/Notification";
 // import { CSSTransition } from "react-transition-group";
 // import filters from "./filter.module.css";
 
-export default class App extends Component {
+export default function App() {
   // state = {
   //   contacts: [],
   //   filter: "",
@@ -79,24 +79,28 @@ export default class App extends Component {
   //   });
   // };
 
-  render() {
-    // const { contacts, filter } = this.state;
+  // render() {
+  // const { contacts, filter } = this.state;
 
-    // const visibleFilter = this.getFilter();
+  // const visibleFilter = this.getFilter();
 
-    return (
-      <>
-        <Container title="PhoneBook">
+  return (
+    <>
+      <Container title="PhoneBook">
+        <ContactForm />
+      </Container>
+      <Container>
+        <Filter />
+        <ContactList />
+      </Container>
+
+      {/* <Container>
+         <Filter /> 
+       <ContactList />
+       </Container> 
+      <Container title="PhoneBook">
           <ContactForm addContact={this.addContact} />
-        </Container>
-        <Container>
-          <Filter />
-          <ContactList />
-        </Container>
-
-        {/* <Container title="PhoneBook">
-          <ContactForm addContact={this.addContact} />
-        </Container>
+        </Container> 
 
         <Container title="Contacts">
           <Filter
@@ -109,8 +113,7 @@ export default class App extends Component {
             contacts={visibleFilter}
             removeContact={this.removeContact}
           />
-        </Container> */}
-      </>
-    );
-  }
+        </Container>  */}
+    </>
+  );
 }

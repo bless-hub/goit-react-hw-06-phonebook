@@ -7,26 +7,28 @@ import taskActions from "../../redux/tasks/taskActions";
 import { connect } from "react-redux";
 
 const Filter = ({ contacts, value, onChangeFilter }) => (
-  // <>
-  //   <CSSTransition
-  //     // in={contacts.length > 1}
-  //     timeout={5000}
-  //     appear
-  //     unmountOnExit
-  //     classNames={fadeFilter}
-  //   >
-  <div>
-    <p className={style.inputHeader}>Find contact by name</p>
-    <input
-      className={style.input}
-      type="text"
-      value={value}
-      placeholder="find contact"
-      onChange={(e) => onChangeFilter(e.target.value)}
-    />
-  </div>
-  //   </CSSTransition>
-  // </>
+  <>
+    {contacts.length > 1 && (
+      <CSSTransition
+        in={contacts.length > 1}
+        timeout={250}
+        appear
+        unmountOnExit
+        classNames={fadeFilter}
+      >
+        <div>
+          <p className={style.inputHeader}>Find contact by name</p>
+          <input
+            className={style.input}
+            type="text"
+            value={value}
+            placeholder="find contact"
+            onChange={(e) => onChangeFilter(e.target.value)}
+          />
+        </div>
+      </CSSTransition>
+    )}
+  </>
 );
 
 Filter.propTypes = {
@@ -35,7 +37,8 @@ Filter.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  value: state.task.filter,
+  value: state.tasks.filter,
+  contacts: state.tasks.items,
 });
 const mapDispatchToProps = {
   onChangeFilter: taskActions.changeFilter,
